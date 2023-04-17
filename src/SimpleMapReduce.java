@@ -123,7 +123,8 @@ public class SimpleMapReduce {
             output = new ArrayList<>();
             // Iterate over the sorted list of keys
             for (String k: ks) {
-                // Add a new Pair object to the output list with the passenger ID and the corresponding number of flights                output.add(new Pair(k, m.get(k)));
+                // Add a new Pair object to the output list with the passenger ID and the corresponding number of flights                
+                output.add(new Pair(k, m.get(k)));
             }
         }
 
