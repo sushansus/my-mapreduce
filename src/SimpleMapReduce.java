@@ -192,7 +192,8 @@ public class SimpleMapReduce {
         public Integer numOfFlight;
     }
     public static class Flight {
-        // Fields to store the passenger ID, flight ID, departure location, destination, departure time, and flight duration        public String passengerId;
+        // Fields to store the passenger ID, flight ID, departure location, destination, departure time, and flight duration
+        public String passengerId;
         public String flightId;
         public String from;
         public String to;
