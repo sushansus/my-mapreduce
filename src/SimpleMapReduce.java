@@ -177,8 +177,11 @@ public class SimpleMapReduce {
         return result;
     }
 
-
+// This class represents a pair of passengerId and numOfFlight
+// The passengerId is a string that stores the unique identifier of the passenger
+// The numOfFlight is an integer that stores the number of flights taken by the passenger    
     public static class Pair {
+        // Constructor to initialize the pair with passengerId and numOfFlight
         public Pair(String passengerId, Integer numOfFlight) {
             this.passengerId = passengerId;
             this.numOfFlight = numOfFlight;
@@ -188,7 +191,7 @@ public class SimpleMapReduce {
         public Integer numOfFlight;
     }
     public static class Flight {
-        public String passengerId;
+        // Fields to store the passenger ID, flight ID, departure location, destination, departure time, and flight duration        public String passengerId;
         public String flightId;
         public String from;
         public String to;
