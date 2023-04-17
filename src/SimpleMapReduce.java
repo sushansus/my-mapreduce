@@ -96,21 +96,34 @@ public class SimpleMapReduce {
     }
 
     public static class Reducer extends Thread {
+        // A list of lists of Pair objects
         List<List<Pair>> input;
+        // A list of Pair objects
         List<Pair> output;
+        // A method to perform the reduce operation
         public void reduce() {
+            // A map to store the mapping of passenger ID to the number of flights they have taken
             Map<String, Integer> m = new HashMap();
+            // Iterate over the input list of lists of Pair objects
             for (List<Pair> list: input) {
+                // Iterate over the list of Pair objects
                 for (Pair p: list) {
+                    // Get the current number of flights for the passenger ID or 0 if it does not exist
                     Integer fno = m.getOrDefault(p.passengerId, 0);
+                    // Update the number of flights for the passenger ID
                     m.put(p.passengerId, p.numOfFlight + fno);
                 }
             }
+            
+            // Get the list of keys (passenger IDs) from the map
             List<String> ks = new ArrayList<>(m.keySet());
+            // Sort the list of keys
             Collections.sort(ks);
+            // Initialize the output list of Pair objects
             output = new ArrayList<>();
+            // Iterate over the sorted list of keys
             for (String k: ks) {
-                output.add(new Pair(k, m.get(k)));
+                // Add a new Pair object to the output list with the passenger ID and the corresponding number of flights                output.add(new Pair(k, m.get(k)));
             }
         }
 
