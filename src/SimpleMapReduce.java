@@ -64,10 +64,13 @@ public class SimpleMapReduce {
 
 
     public static class Mapper extends Thread {
+        // List to store the input Flight objects
         public List<Flight> input;
+        // List to store the output Pair objects
         List<Pair> output;
         @Override
         public void run() {
+            // Sort the output of the map method
             this.output = sort(this.map(input));
         }
         // Map & combine
