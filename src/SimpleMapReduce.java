@@ -132,20 +132,29 @@ public class SimpleMapReduce {
             reduce();
         }
     }
-
+    
+// This code reads data from a file specified by the input argument
+// and stores the data in a list of lists, where each inner list represents
+// a flight and its details. The partitionSize argument determines the
+// number of flights to be stored in each inner list.
+    
     public List<List<Flight>> readData(String input, int partitionSize)  {
+        // Read all lines of the file and store them in a list of strings
         List<String> lines = null;
         try {
             lines = Files.readAllLines(Path.of(input));
         } catch (Exception e) {
+            // Print the stack trace of the exception if there was an error reading the file
             e.printStackTrace();
         }
         System.out.println("count=" + lines.size());
+        // Create a result and temporary list to store the partitions
         List<List<Flight>> result = new ArrayList<>();
         List<Flight> tmp = new ArrayList<>();
         for (String line: lines) {
             String[] elements = line.split(",");
             Flight f = new Flight();
+            // Populate the Flight object with the details from the file
             f.passengerId = elements[0];
             f.flightId = elements[1];
             f.from = elements[2];
@@ -153,14 +162,18 @@ public class SimpleMapReduce {
             f.departure = Integer.parseInt(elements[4]);
             f.duration = Integer.parseInt(elements[5]);
             tmp.add(f);
+            // If the temporary list has reached the specified partition size, add it to the result list
+            // and create a new temporary list for the next partition
             if (tmp.size() == partitionSize) {
                 result.add(tmp);
                 tmp = new ArrayList<>();
             }
         }
+        // If there are any remaining flights in the temporary list, add them to the result list        
         if (tmp.size()>0) {
             result.add(tmp);
         }
+        // Return the result list of partitions of flights
         return result;
     }
 
