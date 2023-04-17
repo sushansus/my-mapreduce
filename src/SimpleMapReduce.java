@@ -201,16 +201,25 @@ public class SimpleMapReduce {
 
     private static void test(List<List<Flight>> partitions){
         Map<String, Integer> m = new HashMap<>();
+        // Loop through all the partitions of flights
         for (List<Flight> partition: partitions) {
+            // Loop through all the flights in the partition
             for (Flight flight: partition) {
+                // Get the current count of flights taken by the passenger or default to 0 if the passenger is not present in the HashMap                
                 int v = m.getOrDefault(flight.passengerId, 0);
+                // Update the count of flights taken by the passenger
                 m.put(flight.passengerId, v+1);
             }
         }
+        // Find the maximum value in the HashMap which represents the maximum number of flights taken by a passenger
         Integer max = Collections.max(m.values());
+        // Print the message indicating the maximum number of flights taken
         System.out.println("The passengers who has "+max+ " (Max) flights");
+        // Loop through all the keys in the HashMap
         for (String k: m.keySet()) {
+            // Check if the value of the current key is equal to the maximum number of flights
             if (m.get(k)==max) {
+                // If yes, print the passengerId of the passenger
                 System.out.println(k);
             }
         }
